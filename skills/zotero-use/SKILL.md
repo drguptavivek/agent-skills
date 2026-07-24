@@ -33,5 +33,4 @@ description: "Use when an agent needs either of the two primary Zotero workflows
 - Search/query/retrieve/brainstorm from Zotero references: `references/search-retrieve-brainstorm.md`
 - Adding Zotero citation fields to Word DOCX files: `references/word-docx-citations.md`
 - Zotero MCP server setup, context warning, and MCP tool usage: `references/zotero-mcp.md`
-- Verified local examples on this machine: `references/verified-local-examples.md`
 - Troubleshooting and common checks: `references/setup-troubleshooting.md`

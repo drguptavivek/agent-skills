@@ -35,3 +35,7 @@ The CLI supports Codex, Claude Code, Cursor, Gemini CLI, OpenCode, and many othe
 ## Catalog layout
 
 Each skill lives at `skills/<skill-name>/` and contains its own `SKILL.md` entrypoint plus any required references, scripts, or assets.
+
+## Maintenance
+
+The canonical source for `zotero-use` is [`drguptavivek/zotero-use`](https://github.com/drguptavivek/zotero-use). Do not edit its marketplace mirror directly. The `Sync zotero-use` GitHub Actions workflow refreshes the mirror daily and can also be run manually.
