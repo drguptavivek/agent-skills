@@ -1,0 +1,54 @@
+name: Sync r-ophthal-analysis
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "31 3 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-r-ophthal-analysis
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out marketplace
+        uses: actions/checkout@v4
+
+      - name: Check out canonical skill
+        uses: actions/checkout@v4
+        with:
+          repository: drguptavivek/r-ophthal-analysis
+          path: .canonical/r-ophthal-analysis
+          fetch-depth: 1
+
+      - name: Refresh marketplace mirror
+        shell: bash
+        run: |
+          rsync -a --delete \
+            --exclude '.git/' \
+            --exclude '.github/' \
+            --exclude 'README.md' \
+            .canonical/r-ophthal-analysis/ skills/r-ophthal-analysis/
+          rm -rf .canonical
+
+      - name: Verify skill discovery
+        shell: bash
+        run: npx -y skills add . --list | grep -q 'r-ophthal-analysis'
+
+      - name: Commit synchronized changes
+        shell: bash
+        run: |
+          git add -A skills/r-ophthal-analysis
+          if git diff --cached --quiet; then
+            echo "Marketplace mirror is already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Sync r-ophthal-analysis from canonical repository"
+          git push
