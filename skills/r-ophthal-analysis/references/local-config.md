@@ -43,8 +43,10 @@ claudeAddin()
 
 For this skill's Codex default, do not use the printed `codex mcp add` command unless the user wants global setup. Instead, write the project-local `.codex/config.toml` block described in `component-mcp.md`.
 
-Use `install_cli(tools = "claude")` for Claude Code CLI and `install_cli(tools = "gemini")` for Gemini. Use `install_clauder()` for Claude Desktop and `install_clauder(for_cursor = TRUE)` for Cursor. Qwen Code support depends on the installed ClaudeR version; if `install_cli(tools = "qwen")` fails, report the exact error and suggest updating ClaudeR.
+ClaudeR-supported client names and installation commands can change. Check the current ClaudeR README and the installed `install_cli()` arguments before configuring Claude Code, Codex, Qwen, Gemini, Antigravity, Desktop, or Cursor. Report unsupported tool names rather than guessing a replacement command.
 
 The `clauder-mcp` Python bridge is separate from the ClaudeR R package. ClaudeR runs the RStudio-side HTTP server; `uvx clauder-mcp` is the MCP bridge that AI clients connect to.
+
+R upgrades can change `R.home()`, the `Rscript` executable, and `.libPaths()`. Run `Rscript scripts/selftest.R --check-updates` after an upgrade. If ClaudeR or required rendering packages are absent from the new library, discuss and reinstall only the needed packages, then rerun the approved client configuration. Do not reuse an absolute path from an older R library without verification.
 
 `uvx` must be available on `PATH`. Check with `command -v uvx` and `uvx --version` on macOS/Linux, or `where uvx` and `uvx --version` on Windows. If missing, install `uv` with `brew install uv`, `curl -LsSf https://astral.sh/uv/install.sh | sh`, PowerShell `irm https://astral.sh/uv/install.ps1 | iex`, or `winget install --id=astral-sh.uv -e`, then restart the terminal/RStudio session.
